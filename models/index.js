@@ -42,4 +42,4 @@
 
 //user.deleteMany({}).then
 
-const {Thoughts, Users} = require()
+const {Reaction, Thought, User} = require()

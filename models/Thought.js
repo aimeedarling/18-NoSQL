@@ -8,10 +8,27 @@ const thoughtSchema = new Schema({
         maxLength: 280
     },
     createdAt: {
-        type: Date
+        type: Date,
+        default: () => Date.now()
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    reactions:
+        [{type: Schema.Types.ObjectId, ref: 'Reaction'}],
+    toJSON: {
+        virtuals: true
     }
-})
+});
 
-const Thought = model('Thought', thoughtSchema)
 
-model.exports = Thought
+thoughtSchema.formatTime
+
+thoughtSchema.virtual('reactionLength').get(function(){
+    return this.reactions.length
+});
+
+const Thought = model('Thought', thoughtSchema);
+
+model.exports = Thought;
