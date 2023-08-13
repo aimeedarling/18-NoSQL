@@ -1,21 +1,3 @@
-// bookSchema with a bookId field:
-// const { model, Schema, Types } = require('mongoose');
-
-// // TODO: Define a new schema named `bookSchema` for the subdocument
-// const bookSchema = new Schema({
-//     title: {
-//         type: String,
-//         required: true,
-//     },
-//     price: Number,
-//     bookId: {
-//         type: Schema.Types.ObjectId,
-//         default: () => new Types.ObjectId()
-//     }
-// });
-
-
-
 
 
 // 18: 27

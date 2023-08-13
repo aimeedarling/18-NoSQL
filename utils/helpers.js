@@ -1,6 +1,6 @@
-
-const formatTime = virtual('timestamp').get(function () {
-    return this.createdAt.toLocalString()
-});
-
-module.exports = Helpers
+module.exports = {
+    format_date: (date) => {
+        // Format date as MM/DD/YYYY
+        return date.toLocaleDateString();
+    },
+}
