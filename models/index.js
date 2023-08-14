@@ -1,4 +1,5 @@
-
+const Thought = require('./Thought')
+const User = require('./User')
 
 // 18: 27
 // Sample connection string for connecting on Heroku OR locally, just remember to swap out the database name in the local string:
@@ -24,4 +25,4 @@
 
 //user.deleteMany({}).then
 
-const {Reaction, Thought, User} = require()
+module.exports = { Thought, User}

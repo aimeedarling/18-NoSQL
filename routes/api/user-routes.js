@@ -6,7 +6,7 @@ const {
     deleteUser,
     addFriend,
     removeFriend,
-} = require('../userControllers')
+} = require('../../controllers/userControllers')
 
 // /api/users
 router.route('/').get(getUsers).post(createUser)
@@ -22,3 +22,8 @@ router.route('/:userId/friends').post(addFriend)
 router.route('/:userId/friends/:friendId').delete(removeFriend)
 
 module.exports = router
+
+{
+    "username": "lernantino",
+        "email": "lernantino@gmail.com"
+}
