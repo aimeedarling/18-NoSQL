@@ -5,8 +5,9 @@ module.exports = {
     //GET to get all thoughts
     async getThoughts (req, res) {
         try {
-            const thoughts = await (await Thought.find()).at('-__v')
-            res.json(thoughts)
+            const thoughts = await Thought.find().select('-__v');
+            console.log(thoughts);
+            res.json(thoughts);
         } catch (error) {
             res.status(500).json(error)
         }
@@ -73,13 +74,23 @@ module.exports = {
     async deleteThought(req,res) {
         try {
             const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId }).select('-__v')
+            console.log(thought)
             if(!thought) {
                 res.status(404).json({ message: 'No such thought exists' });
             }
 
             //remove from users thoughts array
-            await User.findOneAndUpdate({ _id: { $in: thoughts.users } });
-            res.json({ message: 'Thought deleted from user' });
+            const user = await User.findOneAndUpdate(
+            { username: username},
+            {$pull: {thoughts: thought._id}},
+            {new: true}
+            );
+            console.log(user)
+;
+            if(!user) {
+                return res.status(404).json({message: 'User not found'})
+            }
+            res.json({ message: 'Thought deleted from user' })
         } catch (error) {
             res.status(500).json(error)
         }
@@ -94,12 +105,16 @@ module.exports = {
                 { $addToSet: {reactions: req.body}},
                 {runValidators: true, new: true}
             )
+            console.log(thought)
             if(!thought) {
                 return res.status(404).json({ message: 'No thought found with that ID' })
             }
+            console.log("hello")
             res.json(thought)
         } catch (error) {
+            console.log(error)
             res.status(500).json(error)
+
         }
     }, 
 

@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 const { format_date } = require('../utils/helpers')
 
 const reactionSchema = new Schema(
