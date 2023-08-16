@@ -40,15 +40,15 @@ module.exports = {
             res.status(500).json(error)
         }
     },
-    async updateUser (req, res) {
+    async updateUser(req, res) {
         try {
             const user = await User.findOneAndUpdate(
-                {_id: req.params.userId},
-                {$set: req.body},
-                { reunValidators: true, new: true}
+                { _id: req.params.userId },
+                { $set: req.body },
+                { reunValidators: true, new: true }
             )
-            if(!user) {
-                return res.status(404).json({message: 'No such user exists'})
+            if (!user) {
+                return res.status(404).json({ message: 'No such user exists' })
             }
             res.json(user)
         } catch (error) {
@@ -58,17 +58,14 @@ module.exports = {
     // deleteUser,
     async deleteUser(req, res) {
         try {
-            const user = await User.findOneAndRemove({ _id: req.params.userId })
+            const user = await User.findOneAndDelete({ _id: req.params.userId })
             if (!user) {
                 return res.status(404).json({ message: 'No such user exists' })
             }
 
-            const deleteThoughts = await Thought.deleteMany( { user: req.params.userId } )
-            await Thought.updateMany(
-                {user: req.params.userId},
-                { $pull: { users: req.params.userId } }
-            )
-            if (!deleteThoughts.deletedCount) {
+            const deleteThoughts = await Thought.deleteMany({ username: user.username })
+
+            if (!deleteThoughts) {
                 return res.status(404).json({
                     message: 'User deleted, but no thoughts found'
                 })
@@ -79,7 +76,7 @@ module.exports = {
             res.status(500).json(error)
         }
     },
-        //GET all users
+    //GET all users
     async getUsers(req, res) {
         try {
             const users = await User.find()

@@ -30,8 +30,4 @@ const reactionSchema = new Schema(
     }
 );
 
-// reactionSchema.virtual('reactionLength').get(function () {
-//     return this.reactions.length
-// });
-
 module.exports = reactionSchema;
