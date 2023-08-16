@@ -1,4 +1,4 @@
-# Pizza Party Social Network API
+# Pizza Party Social Network API 🍕
 ## Description
 
 I've created a social network API to demonstrate what i've learned so far. To achieve this I used Express.js for routing, MongoDB for my database management, and Mongoose for my Object Data Modeling.
