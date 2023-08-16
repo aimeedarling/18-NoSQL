@@ -8,7 +8,7 @@ module.exports = {
         try {
             const users = await User.find()
             const userObj = {
-                users,
+                users
             };
             res.json(userObj)
         } catch (error) {

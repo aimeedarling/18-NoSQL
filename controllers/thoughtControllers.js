@@ -5,9 +5,9 @@ module.exports = {
     //GET to get all thoughts
     async getThoughts (req, res) {
         try {
-            const thoughts = await Thought.find().select('-__v');
-            console.log(thoughts);
+            const thoughts = await Thought.find()
             res.json(thoughts);
+            console.log(thoughts)
         } catch (error) {
             res.status(500).json(error)
         }
@@ -73,7 +73,7 @@ module.exports = {
     //DELETE to remove a single thought by its _id
     async deleteThought(req,res) {
         try {
-            const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId }).select('-__v')
+            const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId })
             console.log(thought)
             if(!thought) {
                 res.status(404).json({ message: 'No such thought exists' });
@@ -81,11 +81,11 @@ module.exports = {
 
             //remove from users thoughts array
             const user = await User.findOneAndUpdate(
-            { username: username},
+            { username: thought.username},
             {$pull: {thoughts: thought._id}},
             {new: true}
             );
-            console.log(user)
+            console.log(user);
 ;
             if(!user) {
                 return res.status(404).json({message: 'User not found'})
@@ -109,7 +109,6 @@ module.exports = {
             if(!thought) {
                 return res.status(404).json({ message: 'No thought found with that ID' })
             }
-            console.log("hello")
             res.json(thought)
         } catch (error) {
             console.log(error)
@@ -124,6 +123,7 @@ module.exports = {
     async deleteReaction (req,res) {
         try {
             const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
                 { $pull: { reactions:{reactionId: req.params.reactionId} } },
                 { runValidators: true, new: true }
             )
